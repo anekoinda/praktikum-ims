@@ -168,42 +168,6 @@ def read_json():
 
             #	CEK TIAP KOLOM DATA
             else:
-                # if str(result_transaksi_db['rekening']) != str(transaksi['rekening']):
-                #     message = ("=====>UPDATE DATA IN TB_INTEGRATE, SET '%s' TO '%s' WHERE ID TB_INTEGRATE = '%s'") % (
-                #         result_transaksi_db['rekening'], transaksi['rekening'], transaksi['id_transaksi'])
-                #     print(message)
-                #     update_transaksi_bank = "UPDATE tb_transaksi SET tb_transaksi.rekening = '%s' WHERE tb_transaksi.id_transaksi = '%s'" % (
-                #         transaksi['rekening'], transaksi['id_transaksi'])
-                #     cursor_toko.execute(update_transaksi_bank)
-                #     update_integrasi_bank = "UPDATE tb_history SET tb_history.rekening = '%s' WHERE tb_history.id_transaksi = '%s'" % (
-                #         transaksi['rekening'], transaksi['id_transaksi'])
-                #     cursor_toko.execute(update_integrasi_bank)
-                #     db_toko.commit()
-
-                # if str(result_transaksi_db['tanggal']) != str(transaksi['tanggal']):
-                #     message = ("=====>UPDATE DATA IN TB_INTEGRATE, SET '%s' TO '%s' WHERE ID TB_INTEGRATE = '%s'") % (
-                #         result_transaksi_db['tanggal'], transaksi['tanggal'], transaksi['id_transaksi'])
-                #     print(message)
-                #     update_transaksi_bank = "UPDATE tb_transaksi SET tb_transaksi.tanggal = '%s' WHERE tb_transaksi.id_transaksi = '%s'" % (
-                #         transaksi['tanggal'], transaksi['id_transaksi'])
-                #     cursor_toko.execute(update_transaksi_bank)
-                #     update_integrasi_bank = "UPDATE tb_history SET tb_history.tanggal = '%s' WHERE tb_history.id_transaksi = '%s'" % (
-                #         transaksi['tanggal'], transaksi['id_transaksi'])
-                #     cursor_toko.execute(update_integrasi_bank)
-                #     db_toko.commit()
-
-                # if str(result_transaksi_db['total']) != str(transaksi['total']):
-                #     message = ("=====>UPDATE DATA IN TB_INTEGRATE, SET '%s' TO '%s' WHERE TB_INTEGRATE ID = '%s'") % (
-                #         result_transaksi_db['total'], transaksi['total'], transaksi['id_transaksi'])
-                #     print(message)
-                #     update_transaksi_bank = "UPDATE tb_transaksi SET tb_transaksi.total = '%s' WHERE tb_transaksi.id_transaksi = '%s'" % (
-                #         transaksi['total'], transaksi['id_transaksi'])
-                #     cursor_toko.execute(update_transaksi_bank)
-                #     update_integrasi_bank = "UPDATE tb_history SET tb_history.total = '%s' WHERE tb_history.id_transaksi = '%s'" % (
-                #         transaksi['total'], transaksi['id_transaksi'])
-                #     cursor_toko.execute(update_integrasi_bank)
-                #     db_toko.commit()
-
                 if str(result_transaksi_db['status']) != str(transaksi['status']):
                     message = ("=====>UPDATE DATA IN TB_INTEGRATE, SET '%s' TO '%s WHERE TB_INTEGRATE ID = '%s'") % (
                         result_transaksi_db['status'], transaksi['status'], transaksi['id_transaksi'])
@@ -212,23 +176,6 @@ def read_json():
                         transaksi['status'], transaksi['id_transaksi'])
                     cursor_toko.execute(update_transaksi_bank)
                     db_toko.commit()
-
-        select_transaksi_bank = "SELECT * FROM tb_transaksi"
-        cursor_toko.execute(select_transaksi_bank)
-        result_tb_transaksi = cursor_toko.fetchall()
-
-        for result in result_tb_transaksi:
-            if str(result['id_transaksi']) not in toko_list:
-                delete_transaksi = "delete from tb_transaksi where tb_transaksi.id_transaksi = '%s'" % (
-                    result['id_transaksi'])
-                delete_integrasi = "delete from tb_history where tb_history.id_transaksi = '%s'" % (
-                    result['id_transaksi'])
-                cursor_toko.execute(delete_transaksi)
-                cursor_toko.execute(delete_integrasi)
-                db_toko.commit()
-                message = "=====> DELETE DATA FROM TB_TRANSAKSI WHERE ID_TRANSAKSI = '%s'" % (
-                    result['id_transaksi'])
-                print(message)
 
     print('=====> INTEGRATED SUCCESS')
     exit_fun()
