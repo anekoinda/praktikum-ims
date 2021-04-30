@@ -207,12 +207,6 @@ def read_json():
                     message = ("=====>UPDATE DATA IN TB_INTEGRATE, SET '%s' TO '%s WHERE TB_INTEGRATE ID = '%s'") % (
                         result_transaksi_db['status'], transaksi['status'], transaksi['id_transaksi'])
                     print(message)
-                    update_transaksi_bank = "UPDATE tb_transaksi SET tb_transaksi.status = '%s' WHERE tb_transaksi.id_transaksi = '%s'" % (
-                        transaksi['status'], transaksi['id_transaksi'])
-                    cursor_toko.execute(update_transaksi_bank)
-                    update_integrasi_bank = "UPDATE tb_history SET tb_history.status = '%s' WHERE tb_history.id_transaksi = '%s'" % (
-                        transaksi['status'], transaksi['id_transaksi'])
-                    cursor_toko.execute(update_integrasi_bank)
                     db_toko.commit()
 
         select_transaksi_bank = "SELECT * FROM tb_transaksi"
