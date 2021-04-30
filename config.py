@@ -1,0 +1,1 @@
+KODE_TOKO = 'A'

@@ -1,6 +1,6 @@
 import pymysql
 import time
-
+import config
 import json
 
 # CONNECT TO DATABASE
@@ -27,7 +27,7 @@ def create_json():
     for dataIntegrasi in result_data_tb_integrasi:
         data['tb_transaksi'].append({
             'id_transaksi': str(dataIntegrasi['id_transaksi']),
-            'kode_toko': str(dataIntegrasi['kode_toko']),
+            'kode_toko': config.KODE_TOKO,
             'rekening': str(dataIntegrasi['rekening']),
             'tanggal': str(dataIntegrasi['tanggal']),
             'total': str(dataIntegrasi['total']),
@@ -168,58 +168,49 @@ def read_json():
 
             #	CEK TIAP KOLOM DATA
             else:
-                if str(result_transaksi_db['kode_toko']) != str(transaksi['kode_toko']):
-                    message = ("=====>UPDATE DATA IN TB_INTEGRATE, SET '%s' TO '%s' WHERE ID TB_INTEGRATE = '%s'") % (
-                        result_transaksi_db['kode_toko'], transaksi['kode_toko'], transaksi['id_transaksi'])
-                    print(message)
-                    update_transaksi_bank = "UPDATE tb_transaksi SET tb_transaksi.kode_toko = '%s' WHERE tb_transaksi.id_transaksi = '%s'" % (
-                        transaksi['kode_toko'], transaksi['id_transaksi'])
-                    cursor_toko.execute(update_transaksi_bank)
-                    update_integrasi_bank = "UPDATE tb_history SET tb_history.kode_toko = '%s' WHERE tb_history.id_transaksi = '%s'" % (
-                        transaksi['kode_toko'], transaksi['id_transaksi'])
-                    cursor_toko.execute(update_integrasi_bank)
-                    db_toko.commit()
+                # if str(result_transaksi_db['rekening']) != str(transaksi['rekening']):
+                #     message = ("=====>UPDATE DATA IN TB_INTEGRATE, SET '%s' TO '%s' WHERE ID TB_INTEGRATE = '%s'") % (
+                #         result_transaksi_db['rekening'], transaksi['rekening'], transaksi['id_transaksi'])
+                #     print(message)
+                #     update_transaksi_bank = "UPDATE tb_transaksi SET tb_transaksi.rekening = '%s' WHERE tb_transaksi.id_transaksi = '%s'" % (
+                #         transaksi['rekening'], transaksi['id_transaksi'])
+                #     cursor_toko.execute(update_transaksi_bank)
+                #     update_integrasi_bank = "UPDATE tb_history SET tb_history.rekening = '%s' WHERE tb_history.id_transaksi = '%s'" % (
+                #         transaksi['rekening'], transaksi['id_transaksi'])
+                #     cursor_toko.execute(update_integrasi_bank)
+                #     db_toko.commit()
 
-                if str(result_transaksi_db['rekening']) != str(transaksi['rekening']):
-                    message = ("=====>UPDATE DATA IN TB_INTEGRATE, SET '%s' TO '%s' WHERE ID TB_INTEGRATE = '%s'") % (
-                        result_transaksi_db['rekening'], transaksi['rekening'], transaksi['id_transaksi'])
-                    print(message)
-                    update_transaksi_bank = "UPDATE tb_transaksi SET tb_transaksi.rekening = '%s' WHERE tb_transaksi.id_transaksi = '%s'" % (
-                        transaksi['rekening'], transaksi['id_transaksi'])
-                    cursor_toko.execute(update_transaksi_bank)
-                    update_integrasi_bank = "UPDATE tb_history SET tb_history.rekening = '%s' WHERE tb_history.id_transaksi = '%s'" % (
-                        transaksi['rekening'], transaksi['id_transaksi'])
-                    cursor_toko.execute(update_integrasi_bank)
-                    db_toko.commit()
+                # if str(result_transaksi_db['tanggal']) != str(transaksi['tanggal']):
+                #     message = ("=====>UPDATE DATA IN TB_INTEGRATE, SET '%s' TO '%s' WHERE ID TB_INTEGRATE = '%s'") % (
+                #         result_transaksi_db['tanggal'], transaksi['tanggal'], transaksi['id_transaksi'])
+                #     print(message)
+                #     update_transaksi_bank = "UPDATE tb_transaksi SET tb_transaksi.tanggal = '%s' WHERE tb_transaksi.id_transaksi = '%s'" % (
+                #         transaksi['tanggal'], transaksi['id_transaksi'])
+                #     cursor_toko.execute(update_transaksi_bank)
+                #     update_integrasi_bank = "UPDATE tb_history SET tb_history.tanggal = '%s' WHERE tb_history.id_transaksi = '%s'" % (
+                #         transaksi['tanggal'], transaksi['id_transaksi'])
+                #     cursor_toko.execute(update_integrasi_bank)
+                #     db_toko.commit()
 
-                if str(result_transaksi_db['tanggal']) != str(transaksi['tanggal']):
-                    message = ("=====>UPDATE DATA IN TB_INTEGRATE, SET '%s' TO '%s' WHERE ID TB_INTEGRATE = '%s'") % (
-                        result_transaksi_db['tanggal'], transaksi['tanggal'], transaksi['id_transaksi'])
-                    print(message)
-                    update_transaksi_bank = "UPDATE tb_transaksi SET tb_transaksi.tanggal = '%s' WHERE tb_transaksi.id_transaksi = '%s'" % (
-                        transaksi['tanggal'], transaksi['id_transaksi'])
-                    cursor_toko.execute(update_transaksi_bank)
-                    update_integrasi_bank = "UPDATE tb_history SET tb_history.tanggal = '%s' WHERE tb_history.id_transaksi = '%s'" % (
-                        transaksi['tanggal'], transaksi['id_transaksi'])
-                    cursor_toko.execute(update_integrasi_bank)
-                    db_toko.commit()
-
-                if str(result_transaksi_db['total']) != str(transaksi['total']):
-                    message = ("=====>UPDATE DATA IN TB_INTEGRATE, SET '%s' TO '%s' WHERE TB_INTEGRATE ID = '%s'") % (
-                        result_transaksi_db['total'], transaksi['total'], transaksi['id_transaksi'])
-                    print(message)
-                    update_transaksi_bank = "UPDATE tb_transaksi SET tb_transaksi.total = '%s' WHERE tb_transaksi.id_transaksi = '%s'" % (
-                        transaksi['total'], transaksi['id_transaksi'])
-                    cursor_toko.execute(update_transaksi_bank)
-                    update_integrasi_bank = "UPDATE tb_history SET tb_history.total = '%s' WHERE tb_history.id_transaksi = '%s'" % (
-                        transaksi['total'], transaksi['id_transaksi'])
-                    cursor_toko.execute(update_integrasi_bank)
-                    db_toko.commit()
+                # if str(result_transaksi_db['total']) != str(transaksi['total']):
+                #     message = ("=====>UPDATE DATA IN TB_INTEGRATE, SET '%s' TO '%s' WHERE TB_INTEGRATE ID = '%s'") % (
+                #         result_transaksi_db['total'], transaksi['total'], transaksi['id_transaksi'])
+                #     print(message)
+                #     update_transaksi_bank = "UPDATE tb_transaksi SET tb_transaksi.total = '%s' WHERE tb_transaksi.id_transaksi = '%s'" % (
+                #         transaksi['total'], transaksi['id_transaksi'])
+                #     cursor_toko.execute(update_transaksi_bank)
+                #     update_integrasi_bank = "UPDATE tb_history SET tb_history.total = '%s' WHERE tb_history.id_transaksi = '%s'" % (
+                #         transaksi['total'], transaksi['id_transaksi'])
+                #     cursor_toko.execute(update_integrasi_bank)
+                #     db_toko.commit()
 
                 if str(result_transaksi_db['status']) != str(transaksi['status']):
                     message = ("=====>UPDATE DATA IN TB_INTEGRATE, SET '%s' TO '%s WHERE TB_INTEGRATE ID = '%s'") % (
                         result_transaksi_db['status'], transaksi['status'], transaksi['id_transaksi'])
                     print(message)
+                    update_transaksi_bank = "UPDATE tb_transaksi SET tb_transaksi.status = '%s' WHERE tb_transaksi.id_transaksi = '%s'" % (
+                        transaksi['status'], transaksi['id_transaksi'])
+                    cursor_toko.execute(update_transaksi_bank)
                     db_toko.commit()
 
         select_transaksi_bank = "SELECT * FROM tb_transaksi"

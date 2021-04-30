@@ -83,31 +83,40 @@ def read_json():
                     message = ("=====>UPDATE DATA IN TB_INTEGRATE, SET '%s' TO '%s' WHERE ID TB_INTEGRATE = '%s'") % (
                         result_transaksi_db['rekening'], transaksi['rekening'], transaksi['id_transaksi'])
                     print(message)
+                    update_transaksi_bank = "UPDATE tb_transaksi SET tb_transaksi.rekening = '%s' WHERE tb_transaksi.id_transaksi = '%s'" % (
+                        transaksi['rekening'], transaksi['id_transaksi'])
+                    cursor_bank.execute(update_transaksi_bank)
                     db_bank.commit()
 
                 if str(result_transaksi_db['tanggal']) != str(transaksi['tanggal']):
                     message = ("=====>UPDATE DATA IN TB_INTEGRATE, SET '%s' TO '%s' WHERE ID TB_INTEGRATE = '%s'") % (
                         result_transaksi_db['tanggal'], transaksi['tanggal'], transaksi['id_transaksi'])
                     print(message)
+                    update_transaksi_bank = "UPDATE tb_transaksi SET tb_transaksi.tanggal = '%s' WHERE tb_transaksi.id_transaksi = '%s'" % (
+                        transaksi['tanggal'], transaksi['id_transaksi'])
+                    cursor_bank.execute(update_transaksi_bank)
                     db_bank.commit()
 
                 if str(result_transaksi_db['total']) != str(transaksi['total']):
                     message = ("=====>UPDATE DATA IN TB_INTEGRATE, SET '%s' TO '%s' WHERE TB_INTEGRATE ID = '%s'") % (
                         result_transaksi_db['total'], transaksi['total'], transaksi['id_transaksi'])
                     print(message)
+                    update_transaksi_bank = "UPDATE tb_transaksi SET tb_transaksi.total = '%s' WHERE tb_transaksi.id_transaksi = '%s'" % (
+                        transaksi['total'], transaksi['id_transaksi'])
+                    cursor_bank.execute(update_transaksi_bank)
                     db_bank.commit()
 
-                if str(result_transaksi_db['status']) != str(transaksi['status']):
-                    message = ("=====>UPDATE DATA IN TB_INTEGRATE, SET '%s' TO '%s WHERE TB_INTEGRATE ID = '%s'") % (
-                        result_transaksi_db['status'], transaksi['status'], transaksi['id_transaksi'])
-                    print(message)
-                    update_transaksi_bank = "UPDATE tb_transaksi SET tb_transaksi.status = '%s' WHERE tb_transaksi.id_transaksi = '%s'" % (
-                        transaksi['status'], transaksi['id_transaksi'])
-                    cursor_bank.execute(update_transaksi_bank)
-                    update_integrasi_bank = "UPDATE tb_history SET tb_history.status = '%s' WHERE tb_history.id_transaksi = '%s'" % (
-                        transaksi['status'], transaksi['id_transaksi'])
-                    cursor_bank.execute(update_integrasi_bank)
-                    db_bank.commit()
+                # if str(result_transaksi_db['status']) != str(transaksi['status']):
+                #     message = ("=====>UPDATE DATA IN TB_INTEGRATE, SET '%s' TO '%s WHERE TB_INTEGRATE ID = '%s'") % (
+                #         result_transaksi_db['status'], transaksi['status'], transaksi['id_transaksi'])
+                #     print(message)
+                #     update_transaksi_bank = "UPDATE tb_transaksi SET tb_transaksi.status = '%s' WHERE tb_transaksi.id_transaksi = '%s'" % (
+                #         transaksi['status'], transaksi['id_transaksi'])
+                #     cursor_bank.execute(update_transaksi_bank)
+                #     update_integrasi_bank = "UPDATE tb_history SET tb_history.status = '%s' WHERE tb_history.id_transaksi = '%s'" % (
+                #         transaksi['status'], transaksi['id_transaksi'])
+                #     cursor_bank.execute(update_integrasi_bank)
+                #     db_bank.commit()
 
     print('=====> INTEGRATED SUCCESS')
     exit_fun()
