@@ -99,23 +99,6 @@ def read_json():
                     cursor_bank.execute(update_integrasi_bank)
                     db_bank.commit()
 
-        select_transaksi_bank = "SELECT * FROM tb_transaksi"
-        cursor_bank.execute(select_transaksi_bank)
-        result_tb_transaksi = cursor_bank.fetchall()
-
-        for result in result_tb_transaksi:
-            if str(result['id_transaksi']) not in toko_list:
-                delete_transaksi = "delete from tb_transaksi where tb_transaksi.id_transaksi = '%s'" % (
-                    result['id_transaksi'])
-                delete_integrasi = "delete from tb_history where tb_history.id_transaksi = '%s'" % (
-                    result['id_transaksi'])
-                cursor_bank.execute(delete_transaksi)
-                cursor_bank.execute(delete_integrasi)
-                db_bank.commit()
-                message = "=====> DELETE DATA FROM TB_TRANSAKSI WHERE ID_TRANSAKSI = '%s'" % (
-                    result['id_transaksi'])
-                print(message)
-
     print('=====> INTEGRATED SUCCESS')
     exit_fun()
 
