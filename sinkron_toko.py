@@ -27,6 +27,7 @@ def create_json():
     for dataIntegrasi in result_data_tb_integrasi:
         data['tb_transaksi'].append({
             'id_transaksi': str(dataIntegrasi['id_transaksi']),
+            'kode_toko': str(dataIntegrasi['kode_toko']),
             'rekening': str(dataIntegrasi['rekening']),
             'tanggal': str(dataIntegrasi['tanggal']),
             'total': str(dataIntegrasi['total']),
@@ -167,6 +168,18 @@ def read_json():
 
             #	CEK TIAP KOLOM DATA
             else:
+                if str(result_transaksi_db['kode_toko']) != str(transaksi['kode_toko']):
+                    message = ("=====>UPDATE DATA IN TB_INTEGRATE, SET '%s' TO '%s' WHERE ID TB_INTEGRATE = '%s'") % (
+                        result_transaksi_db['kode_toko'], transaksi['kode_toko'], transaksi['id_transaksi'])
+                    print(message)
+                    update_transaksi_bank = "UPDATE tb_transaksi SET tb_transaksi.kode_toko = '%s' WHERE tb_transaksi.id_transaksi = '%s'" % (
+                        transaksi['kode_toko'], transaksi['id_transaksi'])
+                    cursor_toko.execute(update_transaksi_bank)
+                    update_integrasi_bank = "UPDATE tb_history SET tb_history.kode_toko = '%s' WHERE tb_history.id_transaksi = '%s'" % (
+                        transaksi['kode_toko'], transaksi['id_transaksi'])
+                    cursor_toko.execute(update_integrasi_bank)
+                    db_toko.commit()
+
                 if str(result_transaksi_db['rekening']) != str(transaksi['rekening']):
                     message = ("=====>UPDATE DATA IN TB_INTEGRATE, SET '%s' TO '%s' WHERE ID TB_INTEGRATE = '%s'") % (
                         result_transaksi_db['rekening'], transaksi['rekening'], transaksi['id_transaksi'])

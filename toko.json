@@ -2,6 +2,7 @@
     "tb_transaksi": [
         {
             "id_transaksi": "10",
+            "kode_toko": "A",
             "rekening": "151515151",
             "tanggal": "2021-04-15 17:01:09",
             "total": "111",
@@ -9,6 +10,7 @@
         },
         {
             "id_transaksi": "11",
+            "kode_toko": "A",
             "rekening": "2222222222333333333",
             "tanggal": "2021-04-15 17:01:09",
             "total": "111",
@@ -16,6 +18,7 @@
         },
         {
             "id_transaksi": "12",
+            "kode_toko": "A",
             "rekening": "2222222222333333333",
             "tanggal": "2021-04-15 17:01:09",
             "total": "111",
@@ -23,6 +26,7 @@
         },
         {
             "id_transaksi": "13",
+            "kode_toko": "A",
             "rekening": "8989898",
             "tanggal": "2021-04-15 17:51:03",
             "total": "22222",
@@ -30,6 +34,7 @@
         },
         {
             "id_transaksi": "14",
+            "kode_toko": "A",
             "rekening": "222221111",
             "tanggal": "2021-04-15 18:01:49",
             "total": "111",
@@ -37,6 +42,7 @@
         },
         {
             "id_transaksi": "15",
+            "kode_toko": "A",
             "rekening": "212121212",
             "tanggal": "2021-04-15 17:01:09",
             "total": "111",
@@ -44,6 +50,7 @@
         },
         {
             "id_transaksi": "25",
+            "kode_toko": "A",
             "rekening": "2222",
             "tanggal": "2021-04-15 19:16:23",
             "total": "1111",
@@ -51,6 +58,7 @@
         },
         {
             "id_transaksi": "27",
+            "kode_toko": "A",
             "rekening": "2222",
             "tanggal": "2021-04-15 19:26:48",
             "total": "11111",
@@ -58,10 +66,19 @@
         },
         {
             "id_transaksi": "29",
+            "kode_toko": "A",
             "rekening": "111",
             "tanggal": "2021-04-15 19:41:38",
             "total": "111",
             "status": "not paid"
+        },
+        {
+            "id_transaksi": "30",
+            "kode_toko": "A",
+            "rekening": "111",
+            "tanggal": "2021-04-30 12:15:57",
+            "total": "30000",
+            "status": "paid"
         }
     ]
 }

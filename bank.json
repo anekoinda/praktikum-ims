@@ -71,6 +71,14 @@
             "tanggal": "2021-04-15 19:41:38",
             "total": "111",
             "status": "not paid"
+        },
+        {
+            "id_transaksi": "30",
+            "kode_toko": "A",
+            "rekening": "111",
+            "tanggal": "2021-04-30 12:15:57",
+            "total": "30000",
+            "status": "paid"
         }
     ]
 }

@@ -56,12 +56,10 @@ def read_json():
 
             #	INTEGRATE !!!!
             if type(result_transaksi_db) is type(None):
-                insert_transaksi = "INSERT INTO tb_transaksi values('%s','%s','%s','%s','%s','%s')" % (
+                insert_transaksi = "INSERT INTO tb_transaksi values('','%s','%s','%s','%s','%s','%s')" % (
                     transaksi['id_transaksi'], transaksi['kode_toko'], transaksi['rekening'], transaksi['tanggal'], transaksi['total'], transaksi['status'])
                 cursor_bank.execute(insert_transaksi)
-                insert_integrasi = "INSERT INTO tb_history values('%s','%s','%s','%s','%s','%s')" % (
-                    transaksi['id_transaksi'], transaksi['kode_toko'], transaksi['rekening'], transaksi['tanggal'], transaksi['total'], transaksi['status'])
-                cursor_bank.execute(insert_integrasi)
+
                 db_bank.commit()
                 message = ("=====>INSERT NEW DATA INTO TB_INTEGRATED BANK WITH ID = %s FROM TOKO.json") % (
                     transaksi['id_transaksi'])
@@ -69,6 +67,18 @@ def read_json():
 
             #	CEK TIAP KOLOM DATA
             else:
+                if str(result_transaksi_db['kode_toko']) != str(transaksi['kode_toko']):
+                    message = ("=====>UPDATE DATA IN TB_INTEGRATE, SET '%s' TO '%s' WHERE ID TB_INTEGRATE = '%s'") % (
+                        result_transaksi_db['kode_toko'], transaksi['kode_toko'], transaksi['id_transaksi'])
+                    print(message)
+                    update_transaksi_bank = "UPDATE tb_transaksi SET tb_transaksi.kode_toko = '%s' WHERE tb_transaksi.id_transaksi = '%s'" % (
+                        transaksi['kode_toko'], transaksi['id_transaksi'])
+                    cursor_bank.execute(update_transaksi_bank)
+                    update_integrasi_bank = "UPDATE tb_history SET tb_history.kode_toko = '%s' WHERE tb_history.id_transaksi = '%s'" % (
+                        transaksi['kode_toko'], transaksi['id_transaksi'])
+                    cursor_bank.execute(update_integrasi_bank)
+                    db_bank.commit()
+
                 if str(result_transaksi_db['rekening']) != str(transaksi['rekening']):
                     message = ("=====>UPDATE DATA IN TB_INTEGRATE, SET '%s' TO '%s' WHERE ID TB_INTEGRATE = '%s'") % (
                         result_transaksi_db['rekening'], transaksi['rekening'], transaksi['id_transaksi'])
@@ -174,38 +184,7 @@ def cek_data():
                 message = "=====> TOTAL DATA TRANSACTION AND TABLE TOKO.json = %s " % (
                     jumlah[0]['jumlah'])
                 print(message)
-                for datacek in data['tb_transaksi']:
-                    if(str(data_db[i]['id_transaksi']) != str(datacek['id_transaksi'])):
-                        error += 1
-                        message = "=====> DIFFERENT DATA DETECTED !!, ID_TRANSAKSI DATABASE = '%s' ID_TRANSAKSI TOKO.json = '%s'" % (
-                            data_db[i]['id_transaksi'], datacek['id_transaksi'])
-                        print(message)
-                    if(str(data_db[i]['kode_toko']) != str(datacek['kode_toko'])):
-                        error += 1
-                        message = "=====> DIFFERENT DATA DETECTED !!, ID_TRANSAKSI DATABASE = '%s' ID_TRANSAKSI TOKO.json = '%s' WHERE ID_TRANSAKSI = '%s'" % (
-                            data_db[i]['kode_toko'], datacek['kode_toko'], data_db[i]['id_transaksi'])
-                        print(message)
-                    if(str(data_db[i]['rekening']) != str(datacek['rekening'])):
-                        error += 1
-                        message = "=====> DIFFERENT DATA DETECTED !!, NO_REKENING DATABASE = '%s' NO_REKENING TOKO.json = '%s' WHERE ID_TRANSAKSI = '%s'" % (
-                            data_db[i]['rekening'], datacek['rekening'], data_db[i]['id_transaksi'])
-                        print(message)
-                    if(str(data_db[i]['tanggal']) != str(datacek['tanggal'])):
-                        error += 1
-                        message = message = "===> DIFFERENT DATA DETECTED !!, TGL_TRANSAKSI DATABASE = '%s' TGL_TRANSAKSI TOKO.json = '%s' WHERE ID_TRANSAKSI = '%s'" % (
-                            data_db[i]['tanggal'], datacek['tanggal'], data_db[i]['id_transaksi'])
-                        print(message)
-                    if(str(data_db[i]['total']) != str(datacek['total'])):
-                        error += 1
-                        message = "=====> DIFFERENT DATA DETECTED !!, TOTAL_TRANSAKSI DATABASE = '%s' TOTAL_TRANSAKSI TOKO.json = '%s' WHERE ID_TRANSAKSI = '%s'" % (
-                            data_db[i]['total'], datacek['total'], data_db[i]['id_transaksi'])
-                        print(message)
-                    if(str(data_db[i]['status']) != str(datacek['status'])):
-                        error += 1
-                        message = "=====> DIFFERENT DATA DETECTED !!, STATUS DATABASE = '%s' STATUS TOKO.json = '%s' WHERE ID_TRANSAKSI = '%s'" % (
-                            data_db[i]['status'], datacek['status'], datacek['id_transaksi'])
-                        print(message)
-                    i = i + 1
+
             if (error == 0):
                 print("=====> DIFFERENT DATA NOT FOUND")
             elif(error > 0):
